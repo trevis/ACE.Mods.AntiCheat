@@ -9,14 +9,10 @@
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 	</PropertyGroup>
-  
+
 	<ItemGroup>
 		<PackageReference Include="Lib.Harmony" Version="2.3.3" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.0">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-    <PackageReference Include="ACEmulator.ACE.Shared" Version="1.*" />
+		<PackageReference Include="ACEmulator.ACE.Shared" Version="1.*" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -42,10 +38,6 @@
 		</Reference>
 		<Reference Include="ACE.Server">
 			<HintPath>C:\ACE\Server\ACE.Server.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="Microsoft.EntityFrameworkCore">
-			<HintPath>C:\ACE\Server\Microsoft.EntityFrameworkCore.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
 	</ItemGroup>
