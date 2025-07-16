@@ -5,7 +5,7 @@ An anti-cheat mod for ACE.
 - AntiBlink: Detects / prevents moving through closed doors.
 
 ### Install:
-Download from [releases](https://github.com/trevis/ACE.Mods.AntiCheat/releases), and extract to `C:/ACE/Mods/` (or whatever your mod directory is.) (eg `C:/ACE/Mods/ACE.Mods.AntiCheat/ACE.Mods.AntiCheat.dll`)
+Download from the latest ACE.Mods.AntiCheat.zip from github [releases](https://github.com/trevis/ACE.Mods.AntiCheat/releases), and extract to `C:/ACE/Mods/` (or whatever your mod directory is.) (eg `C:/ACE/Mods/ACE.Mods.AntiCheat/ACE.Mods.AntiCheat.dll`)
 
 ### TODO:
 - Speed hack / other detection?
