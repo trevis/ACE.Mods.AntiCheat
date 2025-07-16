@@ -1,0 +1,10 @@
+{
+  "Name": "ACE.Mods.AntiCheat",
+  "Author": "trevis",
+  "Description": "Server AntiCheat.",
+  "Version": "1.0",
+  "Enabled": true,
+  "HotReload": true,
+  "RegisterCommands": true,
+  "ACEVersion": "0.0"
+}
