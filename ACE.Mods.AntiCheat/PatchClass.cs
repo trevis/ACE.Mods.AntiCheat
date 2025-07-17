@@ -7,7 +7,7 @@ namespace ACE.Mods.AntiCheat;
 [HarmonyPatch]
 public class PatchClass(BasicMod mod, string settingsName = "Settings.json") : BasicPatch<Settings>(mod, settingsName)
 {
-    private static DateTime _serverStart = DateTime.Now;
+    private static DateTime _serverStart = DateTime.UtcNow;
 
     public override void Init()
     {
@@ -48,8 +48,11 @@ public class PatchClass(BasicMod mod, string settingsName = "Settings.json") : B
                         return false;
                     }
 
-                    return obj.WeenieObj.WorldObject is Door door && door.Ethereal != true;
+                    // non-etherial doors
+                    return obj.WeenieObj.WorldObject is Door door && door.PhysicsObj?.State.HasFlag(PhysicsState.Ethereal) != true;
                 });
+
+            var now = DateTime.UtcNow;
 
             foreach (var visibleObj in doors)
             {
@@ -60,10 +63,10 @@ public class PatchClass(BasicMod mod, string settingsName = "Settings.json") : B
                 if (collisionPoint.HasValue)
                 {
                     var lastBlink = __instance.GetProperty(PropertyFloat.AbuseLoggingTimestamp) ?? 0;
-                    if (Math.Abs(lastBlink - (_serverStart - DateTime.Now).TotalMilliseconds) > Settings.AntiBlinkLogIntervalMilliseconds) {
-                        __instance.SetProperty(PropertyFloat.AbuseLoggingTimestamp, (_serverStart - DateTime.Now).TotalMilliseconds);
+                    if (Math.Abs(lastBlink - (_serverStart - now).TotalMilliseconds) > Settings.AntiBlinkLogIntervalMilliseconds) {
+                        __instance.SetProperty(PropertyFloat.AbuseLoggingTimestamp, (_serverStart - now).TotalMilliseconds);
                         
-                        ModManager.Log($"Player {__instance.Name} blinked through a door at {currentPosition}");
+                        ModManager.Log($"Player {__instance.Name} attempted to blink through a door at {currentPosition} (0x{door.Guid.Full:X8})");
                     }
                     __instance.Sequences.GetNextSequence(SequenceType.ObjectForcePosition);
                     __instance.SendUpdatePosition();
