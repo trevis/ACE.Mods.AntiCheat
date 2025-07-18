@@ -2,7 +2,7 @@
   "Name": "ACE.Mods.AntiCheat",
   "Author": "trevis",
   "Description": "Server AntiCheat.",
-  "Version": "1.4",
+  "Version": "1.5",
   "Enabled": true,
   "HotReload": true,
   "RegisterCommands": true,

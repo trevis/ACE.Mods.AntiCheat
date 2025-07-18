@@ -38,11 +38,6 @@ public class PatchClass(BasicMod mod, string settingsName = "Settings.json") : B
         StartServices();
     }
 
-    public override void Stop()
-    {
-        base.Stop();
-    }
-
     [HarmonyPrefix]
     [HarmonyPatch(typeof(Player), nameof(Player.UpdatePlayerPosition), new Type[] { typeof(Position), typeof(bool) })]
     public static bool PreUpdatePlayerPosition(Position newPosition, bool forceUpdate, ref Player __instance, ref bool __result)

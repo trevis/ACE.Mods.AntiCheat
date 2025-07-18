@@ -26,11 +26,11 @@ namespace ACE.Mods.AntiCheat
             var currentPosition = __instance.GetPosition(PositionType.Location);
 
             // get all visible doors that aren't ethereal, and monster doors like "Mana Barrier"
+            // This could also use some filtering to only get nearby doors instead of all visible,
+            // but this is pretty fast in benchmarks so i'm not too worried currently
             var objsToCheck = __instance.PhysicsObj.ObjMaint.GetVisibleObjects(__instance.PhysicsObj.CurCell)
                 .Where((obj) => {
                     // TODO: probably could check this zlevel in a better way...
-                    // This could also use some filtering to only get nearby doors instead of all visible,
-                    // but this is pretty fast in benchmarks so i'm not too worried currently
                     if (Math.Abs(obj.Position.Frame.Origin.Z - currentPosition.PositionZ) > 6f)
                     {
                         return false;
@@ -54,7 +54,7 @@ namespace ACE.Mods.AntiCheat
                 Vector3? collisionPoint = null;
                 var wo = visibleObj.WeenieObj.WorldObject;
                 // non-ethereal doors
-                if (wo is Door door)
+                if (IsNonEtherealDoor(visibleObj))
                 {
                     collisionPoint = CollisionHelpers.GetDoorCollisionPoint(currentPosition, newPosition, wo);
                 }
