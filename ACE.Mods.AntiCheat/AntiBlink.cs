@@ -1,5 +1,6 @@
 ﻿
 using ACE.Mods.AntiCheat.Lib;
+using ACE.Server.Network;
 using ACE.Server.Network.Sequence;
 
 namespace ACE.Mods.AntiCheat
@@ -25,41 +26,26 @@ namespace ACE.Mods.AntiCheat
             var now = DateTime.UtcNow;
             var currentPosition = __instance.GetPosition(PositionType.Location);
 
-            // get all visible doors that aren't ethereal, and monster doors like "Mana Barrier"
             // This could also use some filtering to only get nearby doors instead of all visible,
             // but this is pretty fast in benchmarks so i'm not too worried currently
-            var objsToCheck = __instance.PhysicsObj.ObjMaint.GetVisibleObjects(__instance.PhysicsObj.CurCell)
-                .Where((obj) => {
-                    // TODO: probably could check this zlevel in a better way...
-                    if (Math.Abs(obj.Position.Frame.Origin.Z - currentPosition.PositionZ) > 6f)
-                    {
-                        return false;
-                    }
-
-                    // ethereal doors
-                    if (IsNonEtherealDoor(obj)) {
-                        return true;
-                    }
-
-                    // monster doors (Mana Barrier)
-                    if (Settings.AntiBlinkMonsterDoors && IsMonsterDoor(obj)) {
-                        return true;
-                    }
-
-                    return false;
-                });
-
-            foreach (var visibleObj in objsToCheck)
+            foreach (var obj in __instance.PhysicsObj.ObjMaint.GetVisibleObjectsValues())
             {
+                // TODO: probably could check this zlevel in a better way...
+                if (Math.Abs(obj.Position.Frame.Origin.Z - currentPosition.PositionZ) > 6f)
+                {
+                    continue;
+                }
+
                 Vector3? collisionPoint = null;
-                var wo = visibleObj.WeenieObj.WorldObject;
+                var wo = obj.WeenieObj.WorldObject;
+
                 // non-ethereal doors
-                if (IsNonEtherealDoor(visibleObj))
+                if (IsNonEtherealDoor(obj))
                 {
                     collisionPoint = CollisionHelpers.GetDoorCollisionPoint(currentPosition, newPosition, wo);
                 }
                 // monster doors (Mana Barrier)
-                else if (Settings.AntiBlinkMonsterDoors && IsMonsterDoor(visibleObj))
+                else if (Settings.AntiBlinkMonsterDoors && IsMonsterDoor(obj))
                 {
                     collisionPoint = CollisionHelpers.GetDoorCollisionPoint(currentPosition, newPosition, wo);
                 }

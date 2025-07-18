@@ -1,3 +1,6 @@
+## 1.5
+- Refactoring, cleanup
+
 ## 1.4
 - Fixed false positive in AntiBlink when teleporting within the same dungeon/landblock. (thanks ripley)
 
