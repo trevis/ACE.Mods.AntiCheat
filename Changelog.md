@@ -1,3 +1,6 @@
+## 1.6
+- Skip AntiCheat checks for admins / cloaked players
+
 ## 1.5
 - Refactoring, cleanup
 - Better null checking
