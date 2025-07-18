@@ -1,5 +1,5 @@
 ## 1.6
-- Skip AntiCheat checks for admins / cloaked players
+- Skip AntiCheat checks for admins / cloaked players (see settings to disable)
 
 ## 1.5
 - Refactoring, cleanup

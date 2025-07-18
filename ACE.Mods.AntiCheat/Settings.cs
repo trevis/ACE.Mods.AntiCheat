@@ -4,6 +4,16 @@ namespace ACE.Mods.AntiCheat;
 public class Settings
 {
     /// <summary>
+    /// Whether or not admins are immune to the anti-cheat
+    /// </summary>
+    public bool AdminsAreImmune { get; set; } = true;
+
+    /// <summary>
+    /// Whether or not cloaked players are immune to the anti-cheat
+    /// </summary>
+    public bool CloakedPlayersAreImmune { get; set; } = true;
+
+    /// <summary>
     /// Enable anti-blink, which prevents players from teleporting through closed doors
     /// </summary>
     public bool EnableAntiBlink { get; set; } = true;

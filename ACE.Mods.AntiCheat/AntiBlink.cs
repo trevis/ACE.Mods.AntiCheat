@@ -19,7 +19,7 @@ namespace ACE.Mods.AntiCheat
         internal bool PreUpdatePlayerPosition(Position newPosition, bool forceUpdate, ref Player __instance, ref bool __result)
         {
             // bail early if the player is teleporting, or an admin, or cloaked
-            if (__instance.Teleporting || __instance.IsAdmin || __instance.Cloaked == true) {
+            if (__instance.Teleporting || (Settings.AdminsAreImmune && __instance.IsAdmin) || (Settings.CloakedPlayersAreImmune && __instance.Cloaked == true)) {
                 return true;
             }
 
