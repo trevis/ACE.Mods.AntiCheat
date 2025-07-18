@@ -1,3 +1,6 @@
+## 1.4
+- Fixed false positive in AntiBlink when teleporting within the same dungeon/landblock.
+
 ## 1.3
 - Fixed MonsterDoor check to use AiImmobile / CreatureType:Wall instead of Stuck. (thanks paradox)
 

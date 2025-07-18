@@ -17,6 +17,11 @@ namespace ACE.Mods.AntiCheat
 
         internal bool PreUpdatePlayerPosition(Position newPosition, bool forceUpdate, ref Player __instance, ref bool __result)
         {
+            // bail early if we are hidden (portal space)
+            if (__instance.PhysicsObj.State.HasFlag(PhysicsState.Hidden)) {
+                return true;
+            }
+
             var now = DateTime.UtcNow;
             var currentPosition = __instance.GetPosition(PositionType.Location);
 
