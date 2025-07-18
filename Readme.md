@@ -17,3 +17,4 @@ Download from the latest ACE.Mods.AntiCheat.zip from github [releases](https://g
 - AntiBlink currently doesn't work across landblock boundaries, so there's probably a couple edgecases it fails on.
 - AntiBlink should be fast enough, but could use better filtering for doors to check against.
 - Configurable way to deal with offenders. Right now it just logs.
+- Only apply applicable harmony hooks optionally based on settings.
