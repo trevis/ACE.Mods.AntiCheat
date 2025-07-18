@@ -1,3 +1,6 @@
+## 1.3
+- Fixed MonsterDoor check to use AiImmobile / CreatureType:Wall instead of Stuck. (thanks paradox)
+
 ## 1.2
 - Added setting AntiBlinkMonsterDoors to add checks to monster doors like Mana Barrier.
 

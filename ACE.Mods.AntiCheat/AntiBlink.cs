@@ -32,12 +32,12 @@ namespace ACE.Mods.AntiCheat
                     }
 
                     // ethereal doors
-                    if (obj.WeenieObj.WorldObject is Door door && door.PhysicsObj?.State.HasFlag(PhysicsState.Ethereal) != true) {
+                    if (IsNonEtherealDoor(obj)) {
                         return true;
                     }
 
                     // monster doors (Mana Barrier)
-                    if (Settings.AntiBlinkMonsterDoors && obj.WeenieObj.IsMonster && obj.WeenieObj.WorldObject.GetProperty(PropertyBool.Stuck) == true) {
+                    if (Settings.AntiBlinkMonsterDoors && IsMonsterDoor(obj)) {
                         return true;
                     }
 
@@ -54,7 +54,7 @@ namespace ACE.Mods.AntiCheat
                     collisionPoint = CollisionHelpers.GetDoorCollisionPoint(currentPosition, newPosition, wo);
                 }
                 // monster doors (Mana Barrier)
-                else if (Settings.AntiBlinkMonsterDoors && visibleObj.WeenieObj.IsMonster && visibleObj.WeenieObj.WorldObject.GetProperty(PropertyBool.Stuck) == true)
+                else if (Settings.AntiBlinkMonsterDoors && IsMonsterDoor(visibleObj))
                 {
                     collisionPoint = CollisionHelpers.GetDoorCollisionPoint(currentPosition, newPosition, wo);
                 }
@@ -78,5 +78,18 @@ namespace ACE.Mods.AntiCheat
 
             return true;
         }
+
+        private bool IsMonsterDoor(PhysicsObj obj)
+        {
+            return obj.WeenieObj.IsMonster
+                && obj.WeenieObj.WorldObject.GetProperty(PropertyBool.AiImmobile) == true
+                && obj.WeenieObj.WorldObject.GetProperty(PropertyInt.CreatureType) == (int)CreatureType.Wall;
+        }
+
+        private bool IsNonEtherealDoor(PhysicsObj obj)
+        {
+            return obj.WeenieObj.WorldObject is Door door && door.PhysicsObj?.State.HasFlag(PhysicsState.Ethereal) != true;
+        }
+
     }
 }
