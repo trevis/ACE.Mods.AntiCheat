@@ -1,3 +1,6 @@
+## 1.2
+- Added setting AntiBlinkMonsterDoors to add checks to monster doors like Mana Barrier.
+
 ## 1.1
 - AntiBlink now uses PhysicsObject state ethereal instead of weenie property, to stay in sync better
 

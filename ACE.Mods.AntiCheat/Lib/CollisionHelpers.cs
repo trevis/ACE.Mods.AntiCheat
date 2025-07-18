@@ -9,7 +9,7 @@ namespace ACE.Mods.AntiCheat.Lib
 {
     internal static class CollisionHelpers
     {
-        public static Vector3? GetCollisionPoint(Position start, Position end, Door door)
+        public static Vector3? GetDoorCollisionPoint(Position start, Position end, WorldObject door)
         {
             // TODO: this only currently works in the same landblock...
             if (start.Landblock != end.Landblock)
