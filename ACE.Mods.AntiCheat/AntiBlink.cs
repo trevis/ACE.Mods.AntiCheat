@@ -18,8 +18,8 @@ namespace ACE.Mods.AntiCheat
 
         internal bool PreUpdatePlayerPosition(Position newPosition, bool forceUpdate, ref Player __instance, ref bool __result)
         {
-            // bail early if we are hidden (portal space)
-            if (__instance.PhysicsObj.State.HasFlag(PhysicsState.Hidden)) {
+            // bail early if the player is teleporting
+            if (__instance.Teleporting) {
                 return true;
             }
 
@@ -37,7 +37,11 @@ namespace ACE.Mods.AntiCheat
                 }
 
                 Vector3? collisionPoint = null;
-                var wo = obj.WeenieObj.WorldObject;
+                var wo = obj.WeenieObj?.WorldObject;
+
+                if (wo == null) {
+                    continue;
+                }
 
                 // non-ethereal doors
                 if (IsNonEtherealDoor(obj))
@@ -72,14 +76,19 @@ namespace ACE.Mods.AntiCheat
 
         private bool IsMonsterDoor(PhysicsObj obj)
         {
-            return obj.WeenieObj.IsMonster
+            return 
+                obj.WeenieObj != null
+                && obj.WeenieObj.IsMonster
                 && obj.WeenieObj.WorldObject.GetProperty(PropertyBool.AiImmobile) == true
                 && obj.WeenieObj.WorldObject.GetProperty(PropertyInt.CreatureType) == (int)CreatureType.Wall;
         }
 
         private bool IsNonEtherealDoor(PhysicsObj obj)
         {
-            return obj.WeenieObj.WorldObject is Door door && door.PhysicsObj?.State.HasFlag(PhysicsState.Ethereal) != true;
+            return 
+                obj.WeenieObj != null
+                && obj.WeenieObj.WorldObject is Door door
+                && obj.State.HasFlag(PhysicsState.Ethereal) != true;
         }
 
     }
