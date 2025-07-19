@@ -36,7 +36,7 @@ namespace ACE.Mods.AntiCheat
                 }
 
                 // TODO: probably could check this zlevel in a better way...
-                if (Math.Abs(obj.Position.Frame.Origin.Z - currentPosition.PositionZ) > 6f)
+                if (Math.Abs(obj.Position.Frame.Origin.Z - currentPosition.PositionZ) > Settings.AntiBlinkZHeightLimit)
                 {
                     continue;
                 }
@@ -66,8 +66,7 @@ namespace ACE.Mods.AntiCheat
                     if (Math.Abs(lastBlink - (_serverStart - now).TotalMilliseconds) > Settings.AntiBlinkLogIntervalMilliseconds)
                     {
                         __instance.SetProperty(PropertyFloat.AbuseLoggingTimestamp, (_serverStart - now).TotalMilliseconds);
-                        Mod.Log($"Player {__instance.Name} attempted to blink through (0x{wo.Guid.Full:X8} {wo.Name}) at {currentPosition}", ModManager.LogLevel.Info);
-                        Mod.Log($"  - {collisionPoint} // {obj.Position.Landblock:X8} {currentPosition.Landblock:X8}", ModManager.LogLevel.Info);
+                        Mod.Log($"Player {__instance.Name} attempted to blink through (0x{wo.Guid.Full:X8} {wo.Name}) at {obj.Position}", ModManager.LogLevel.Info);
                     }
                     __instance.Sequences.GetNextSequence(SequenceType.ObjectForcePosition);
                     __instance.SendUpdatePosition();

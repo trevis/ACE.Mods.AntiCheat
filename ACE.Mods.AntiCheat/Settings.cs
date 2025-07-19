@@ -29,6 +29,11 @@ public class Settings
     /// Mana Barrier Example: 0x00E5018F [89.917587 -220.604492 -77.994995] 0.995699 0.000000 0.000000 0.092643
     /// </summary>
     public bool AntiBlinkMonsterDoors { get; set; } = true;
+
+    /// <summary>
+    /// The height limit to check for doors when anti-blink is enabled
+    /// </summary>
+    public float AntiBlinkZHeightLimit { get; set; } = 2.6f;
 }
 
 

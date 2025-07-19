@@ -1,5 +1,6 @@
 ## 1.7
-- Fix AntiBlink issues where it was comparing objects from different landblocks
+- Fix AntiBlink issues where it was comparing objects from different landblocks, and different z heights
+- Added AntiBlink settings AntiBlinkZHeightLimit to adjust z-height check limit.
 
 ## 1.6
 - Skip AntiCheat checks for admins / cloaked players (see settings to disable)
