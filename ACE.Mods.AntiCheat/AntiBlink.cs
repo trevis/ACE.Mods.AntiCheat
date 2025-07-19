@@ -8,7 +8,7 @@ namespace ACE.Mods.AntiCheat
     internal class AntiBlink
     {
         private Settings Settings => PatchClass.Settings;
-        private DateTime _serverStart = DateTime.UtcNow;
+        private DateTime _serverStart = DateTime.UtcNow - TimeSpan.FromSeconds(5);
 
         public AntiBlink()
         {
@@ -30,6 +30,11 @@ namespace ACE.Mods.AntiCheat
             // but this is pretty fast in benchmarks so i'm not too worried currently
             foreach (var obj in __instance.PhysicsObj.ObjMaint.GetVisibleObjectsValues())
             {
+                // TODO: cross-landblock collision check
+                if (obj.Position.Landblock != currentPosition.Landblock) {
+                    continue;
+                }
+
                 // TODO: probably could check this zlevel in a better way...
                 if (Math.Abs(obj.Position.Frame.Origin.Z - currentPosition.PositionZ) > 6f)
                 {
@@ -62,6 +67,7 @@ namespace ACE.Mods.AntiCheat
                     {
                         __instance.SetProperty(PropertyFloat.AbuseLoggingTimestamp, (_serverStart - now).TotalMilliseconds);
                         Mod.Log($"Player {__instance.Name} attempted to blink through (0x{wo.Guid.Full:X8} {wo.Name}) at {currentPosition}", ModManager.LogLevel.Info);
+                        Mod.Log($"  - {collisionPoint} // {obj.Position.Landblock:X8} {currentPosition.Landblock:X8}", ModManager.LogLevel.Info);
                     }
                     __instance.Sequences.GetNextSequence(SequenceType.ObjectForcePosition);
                     __instance.SendUpdatePosition();
